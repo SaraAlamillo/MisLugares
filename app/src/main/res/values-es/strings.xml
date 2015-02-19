@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mis lugares</string>
+    <string name="hello_world">¡Hola mundo!</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="boton_mostrar">Mostrar lugares</string>
+    <string name="boton_preferencias">Preferencias</string>
+    <string name="boton_acerca">Acerca de...</string>
+    <string name="boton_salir">Salir</string>
+    <string name="texto_nombre">Nombre</string>
+    <string name="texto_tipo">Tipo</string>
+    <string name="texto_direccion">Dirección</string>
+    <string name="texto_telefono">Teléfono</string>
+    <string name="texto_url">URL</string>
+    <string name="texto_comentario">Comentario</string>
+    <string name="hint_nombre">Algo que identifique el lugar</string>
+    <string name="hint_direccion">Dirección del lugar</string>
+    <string name="hint_telefono">Teléfono para contactar</string>
+    <string name="hint_url">Página web</string>
+    <string name="hint_comentario">Introduce tus notas</string>
+    <string name="acercade">Este programa ha sido desarrollado como ejemplo en el curso de Android para demostrar cómo se pueden lanzar nuevas actividades desde la actividad principal.</string>
+    <string name="title_activity_acerca_de">Acerca de...</string>
+    <string name="title_activity_preferencias">Preferencias</string>
+    <string name="preference_correo">Notifaciones por correo</string>
+    <string name="title_activity_vista_lugar">Mostrar lugares</string>
+</resources>

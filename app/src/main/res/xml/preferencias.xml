@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="preferencias_principal">
+    <CheckBoxPreference
+        android:key="notificaciones"
+        android:title="Mandar notificaciones"
+        android:summary="Notificar si estamos cerca de un lugar" />
+    <EditTextPreference
+        android:key="distancia"
+        android:title="Distancia para notificar"
+        android:summary="Distancia mínima (Km) para notificar"
+        android:defaultValue="3" />
+    <ListPreference
+        android:key="orden"
+        android:title="Criterio de ordenación"
+        android:summary="Que lugares quieres que aparezcan antes"
+        android:entries="@array/tiposOrden"
+        android:entryValues="@array/tiposOrdenValores"
+        android:defaultValue="1" />
+    <PreferenceCategory android:title="@string/preference_correo">
+        <CheckBoxPreference
+            android:key="recibir"
+            android:title="Recibir correos"
+            android:summary="Recibir correos con información sobre lugares" />
+        <EditTextPreference
+            android:key="direccion"
+            android:title="Dirección de correo"
+            android:summary="Cuenta donde se mandarán las notificaciones" />
+        <ListPreference
+            android:key="tipos"
+            android:title="Tipos de notificaciones"
+            android:entries="@array/tiposNotifaciones"
+            android:entryValues="@array/tiposOrdenValores"
+            android:summary="Qué tipos de correos quieres recibir" />
+    </PreferenceCategory>
+</PreferenceScreen>
