@@ -1,6 +1,8 @@
 package com.sara.mislugares;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,11 +85,23 @@ public class VistaLugar extends Activity {
             case R.id.accion_editar:
                 return true;
             case R.id.accion_borrar:
-                Lugares.borrar((int) id);
-                finish();
+                borrarLugar(null, (int) id);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void borrarLugar(View view, final int id) {
+        new AlertDialog.Builder(this)
+                .setTitle("¿Está seguro que quiere eliminar el lugar?")
+                .setMessage("Tras su eliminación, la recuperación será imposible.")
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Lugares.borrar(id);
+                        VistaLugar.this.recreate();
+                    }
+                })
+                .setNegativeButton("No", null).show();
     }
 }
