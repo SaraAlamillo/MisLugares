@@ -59,4 +59,5 @@ public class Lugares {
                 "http://www.lavital.es/", "El típico centro comercial", 2));
         return lugares;
     }
+
 }

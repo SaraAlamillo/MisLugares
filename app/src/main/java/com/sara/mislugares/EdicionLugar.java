@@ -2,6 +2,7 @@ package com.sara.mislugares;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -27,7 +28,11 @@ public class EdicionLugar extends Activity {
         nombre.setText(lugar.getNombre());
 
         tipo = (Spinner) findViewById(R.id.tipo);
-        tipo.setSelection(lugar.getTipo().getRecurso());
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TipoLugar.getNombres());
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tipo.setAdapter(adaptador);
+        tipo.setSelection(lugar.getTipo().ordinal());
+
 
         direccion = (EditText) findViewById(R.id.direccion);
         direccion.setText(lugar.getDireccion());
