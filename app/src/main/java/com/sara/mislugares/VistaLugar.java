@@ -3,6 +3,7 @@ package com.sara.mislugares;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,6 +84,7 @@ public class VistaLugar extends Activity {
             case R.id.accion_llegar:
                 return true;
             case R.id.accion_editar:
+                edicionLugar(null);
                 return true;
             case R.id.accion_borrar:
                 borrarLugar(null, (int) id);
@@ -103,5 +105,11 @@ public class VistaLugar extends Activity {
                     }
                 })
                 .setNegativeButton("No", null).show();
+    }
+
+    public void edicionLugar(View view) {
+        Intent i = new Intent(VistaLugar.this, EdicionLugar.class);
+        i.putExtra("id", id);
+        startActivity(i);
     }
 }

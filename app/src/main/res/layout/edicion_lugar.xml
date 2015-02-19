@@ -25,7 +25,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etNombre"
+                android:id="@+id/nombre"
                 android:hint="@string/hint_nombre"
                 android:inputType="text" />
 
@@ -44,7 +44,7 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/sTipo"
+                    android:id="@+id/tipo"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
@@ -58,7 +58,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etDireccion"
+                android:id="@+id/direccion"
                 android:hint="@string/hint_direccion"
                 android:inputType="textPostalAddress" />
 
@@ -77,7 +77,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edTelefono"
+                    android:id="@+id/telefono"
                     android:hint="@string/hint_telefono"
                     android:inputType="phone"
                     android:maxLength="9" />
@@ -93,7 +93,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etUrl"
+                android:id="@+id/url"
                 android:hint="@string/hint_url"
                 android:inputType="textUri" />
 
@@ -107,7 +107,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etComentario"
+                android:id="@+id/comentario"
                 android:hint="@string/hint_comentario"
                 android:inputType="text|textMultiLine" />
         </LinearLayout>

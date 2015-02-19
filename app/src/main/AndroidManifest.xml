@@ -31,6 +31,9 @@
         <activity
             android:name=".VistaLugar"
             android:label="@string/title_activity_vista_lugar" />
+        <activity
+            android:name=".EdicionLugar"
+            android:label="Edicción de lugares" />
     </application>
 
 </manifest>
