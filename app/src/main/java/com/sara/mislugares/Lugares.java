@@ -1,6 +1,7 @@
 package com.sara.mislugares;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Lugares {
     public static ArrayList<Lugar> vectorLugares = ejemploLugares();
@@ -58,6 +59,14 @@ public class Lugares {
                 38.9705949, TipoLugar.COMPRAS, 962881070,
                 "http://www.lavital.es/", "El típico centro comercial", 2));
         return lugares;
+    }
+
+    static List<String> listaNombres() {
+        ArrayList<String> resultado = new ArrayList<String>();
+        for (Lugar lugar : vectorLugares) {
+            resultado.add(lugar.getNombre());
+        }
+        return resultado;
     }
 
 }

@@ -1,23 +1,25 @@
 package com.sara.mislugares;
 
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ListActivity {
 
-
+    public BaseAdapter adaptador;
     private Button bAcercaDe;
     private Button bSalir;
     private Button bPreferencias;
@@ -27,30 +29,8 @@ public class MainActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bAcercaDe = (Button) findViewById(R.id.bAcerca);
-        bAcercaDe.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                lanzarAcercaDe(null);
-            }
-        });
-        bPreferencias = (Button) findViewById(R.id.bPreferencias);
-        bPreferencias.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                lanzarPreferencias(null);
-            }
-        });
-        bSalir = (Button) findViewById(R.id.bSalir);
-        bSalir.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        bMostrar = (Button) findViewById(R.id.bMostrar);
-        bMostrar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                lanzarVistaLugar(null);
-            }
-        });
+        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Lugares.listaNombres());
+        setListAdapter(adaptador);
     }
 
     @Override
