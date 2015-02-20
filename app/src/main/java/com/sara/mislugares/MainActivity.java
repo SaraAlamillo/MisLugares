@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +28,7 @@ public class MainActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adaptador = new ArrayAdapter<String>(this, R.layout.elemento_lista, R.id.nombre, Lugares.listaNombres());
+        adaptador = new AdaptadorLugares(this);
         setListAdapter(adaptador);
     }
 
