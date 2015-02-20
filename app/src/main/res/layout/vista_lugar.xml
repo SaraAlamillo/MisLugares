@@ -42,9 +42,10 @@
             android:id="@+id/capa_direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="verMapa">
 
-            <ImageView
+        <ImageView
                 android:id="@+id/logo_direccion"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -63,9 +64,10 @@
             android:id="@+id/capa_telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="llamadaTelefono">
 
-            <ImageView
+        <ImageView
                 android:id="@+id/logo_telefono"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -84,9 +86,10 @@
             android:id="@+id/capa_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="pgWeb">
 
-            <ImageView
+        <ImageView
                 android:id="@+id/logo_url"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
