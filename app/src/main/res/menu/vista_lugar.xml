@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/accion_compartir"
-        android:title="compartir"
+        android:title="Compartir"
         android:icon="@android:drawable/ic_menu_share"
         android:orderInCategory="10"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/accion_llegar"
-        android:title="cómo llegar"
+        android:title="Cómo llegar"
         android:icon="@android:drawable/ic_menu_directions"
         android:orderInCategory="20"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/accion_editar"
-        android:title="editar"
+        android:title="Editar"
         android:icon="@android:drawable/ic_menu_edit"
         android:orderInCategory="30"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/accion_borrar"
-        android:title="borrar"
+        android:title="Borrar"
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="40"
         app:showAsAction="ifRoom" />
