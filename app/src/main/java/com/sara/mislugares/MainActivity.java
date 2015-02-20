@@ -29,7 +29,7 @@ public class MainActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Lugares.listaNombres());
+        adaptador = new ArrayAdapter<String>(this, R.layout.elemento_lista, R.id.nombre, Lugares.listaNombres());
         setListAdapter(adaptador);
     }
 
