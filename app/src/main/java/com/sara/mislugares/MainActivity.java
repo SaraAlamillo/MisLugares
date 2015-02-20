@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -30,6 +31,14 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
         adaptador = new AdaptadorLugares(this);
         setListAdapter(adaptador);
+    }
+
+    @Override
+    protected void onListItemClick(ListView listView, View vista, int posicion, long id) {
+        super.onListItemClick(listView, vista, posicion, id);
+        Intent intent = new Intent(this, VistaLugar.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 
     @Override
