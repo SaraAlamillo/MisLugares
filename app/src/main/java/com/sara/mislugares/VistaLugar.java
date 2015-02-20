@@ -26,48 +26,7 @@ public class VistaLugar extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
         lugar = Lugares.elemento((int) id);
-        TextView nombre = (TextView) findViewById(R.id.nombre);
-        nombre.setText(lugar.getNombre());
-        ImageView logo_tipo = (ImageView) findViewById(R.id.logo_tipo);
-        logo_tipo.setImageResource(lugar.getTipo().getRecurso());
-        TextView tipo = (TextView) findViewById(R.id.tipo);
-        tipo.setText(lugar.getTipo().getTexto());
-        if (lugar.getDireccion() == "") {
-            findViewById(R.id.capa_direccion).setVisibility(View.GONE);
-        } else {
-            TextView direccion = (TextView) findViewById(R.id.direccion);
-            direccion.setText(lugar.getDireccion());
-        }
-        if (lugar.getTelefono() == 0) {
-            findViewById(R.id.capa_telefono).setVisibility(View.GONE);
-        } else {
-            TextView telefono = (TextView) findViewById(R.id.telefono);
-            telefono.setText(Integer.toString(lugar.getTelefono()));
-        }
-        if (lugar.getUrl() == "") {
-            findViewById(R.id.capa_url).setVisibility(View.GONE);
-        } else {
-            TextView url = (TextView) findViewById(R.id.url);
-            url.setText(lugar.getUrl());
-        }
-        if (lugar.getComentario() == "") {
-            findViewById(R.id.capa_comentarios).setVisibility(View.GONE);
-        } else {
-            TextView comentario = (TextView) findViewById(R.id.comentario);
-            comentario.setText(lugar.getComentario());
-        }
-        TextView fecha = (TextView) findViewById(R.id.fecha);
-        fecha.setText(DateFormat.getDateInstance().format(new Date(lugar.getFecha())));
-        TextView hora = (TextView) findViewById(R.id.hora);
-        hora.setText(DateFormat.getTimeInstance().format(new Date(lugar.getFecha())));
-        RatingBar valoracion = (RatingBar) findViewById(R.id.valoracion);
-        valoracion.setRating(lugar.getValoracion());
-        valoracion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float valor, boolean fromUser) {
-                lugar.setValoracion(valor);
-            }
-        });
+        actualizarVistas();
     }
 
     @Override
@@ -110,6 +69,59 @@ public class VistaLugar extends ActionBarActivity {
     public void edicionLugar(View view) {
         Intent i = new Intent(VistaLugar.this, EdicionLugar.class);
         i.putExtra("id", id);
-        startActivity(i);
+        startActivityForResult(i, 1234);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1234) {
+            actualizarVistas();
+            findViewById(R.id.scrollView1).invalidate();
+        }
+    }
+
+    public void actualizarVistas() {
+        TextView nombre = (TextView) findViewById(R.id.nombre);
+        nombre.setText(lugar.getNombre());
+        ImageView logo_tipo = (ImageView) findViewById(R.id.logo_tipo);
+        logo_tipo.setImageResource(lugar.getTipo().getRecurso());
+        TextView tipo = (TextView) findViewById(R.id.tipo);
+        tipo.setText(lugar.getTipo().getTexto());
+        if (lugar.getDireccion() == "") {
+            findViewById(R.id.capa_direccion).setVisibility(View.GONE);
+        } else {
+            TextView direccion = (TextView) findViewById(R.id.direccion);
+            direccion.setText(lugar.getDireccion());
+        }
+        if (lugar.getTelefono() == 0) {
+            findViewById(R.id.capa_telefono).setVisibility(View.GONE);
+        } else {
+            TextView telefono = (TextView) findViewById(R.id.telefono);
+            telefono.setText(Integer.toString(lugar.getTelefono()));
+        }
+        if (lugar.getUrl() == "") {
+            findViewById(R.id.capa_url).setVisibility(View.GONE);
+        } else {
+            TextView url = (TextView) findViewById(R.id.url);
+            url.setText(lugar.getUrl());
+        }
+        if (lugar.getComentario() == "") {
+            findViewById(R.id.capa_comentarios).setVisibility(View.GONE);
+        } else {
+            TextView comentario = (TextView) findViewById(R.id.comentario);
+            comentario.setText(lugar.getComentario());
+        }
+        TextView fecha = (TextView) findViewById(R.id.fecha);
+        fecha.setText(DateFormat.getDateInstance().format(new Date(lugar.getFecha())));
+        TextView hora = (TextView) findViewById(R.id.hora);
+        hora.setText(DateFormat.getTimeInstance().format(new Date(lugar.getFecha())));
+        RatingBar valoracion = (RatingBar) findViewById(R.id.valoracion);
+        valoracion.setRating(lugar.getValoracion());
+        valoracion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float valor, boolean fromUser) {
+                lugar.setValoracion(valor);
+            }
+        });
     }
 }
