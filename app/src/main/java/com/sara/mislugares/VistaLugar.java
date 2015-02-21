@@ -51,6 +51,10 @@ public class VistaLugar extends ActionBarActivity {
         startActivityForResult(intent, RESULTADO_FOTO);
     }
 
+    public void eliminarFoto(View view) {
+        lugar.setFoto(null);
+        ponerFoto(imageView, null);
+    }
 
     public void galeria(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
