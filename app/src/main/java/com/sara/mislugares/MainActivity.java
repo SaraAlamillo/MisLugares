@@ -52,7 +52,6 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onPause() {
-        mp.pause();
         Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
@@ -60,6 +59,7 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        mp.pause();
         Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
     }
 
