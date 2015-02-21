@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -24,6 +25,7 @@ public class MainActivity extends ListActivity {
     private Button bSalir;
     private Button bPreferencias;
     private Button bMostrar;
+    MediaPlayer mp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
         adaptador = new AdaptadorLugares(this);
         setListAdapter(adaptador);
+        mp = MediaPlayer.create(this, R.raw.audio);
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
     }
 
@@ -42,12 +45,14 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onResume() {
+        mp.start();
         super.onResume();
         Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onPause() {
+        mp.pause();
         Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
