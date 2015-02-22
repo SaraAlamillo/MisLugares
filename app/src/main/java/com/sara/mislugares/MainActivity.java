@@ -5,9 +5,13 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements LocationListener {
 
     public BaseAdapter adaptador;
     private Button bAcercaDe;
@@ -26,6 +30,9 @@ public class MainActivity extends ListActivity {
     private Button bPreferencias;
     private Button bMostrar;
     MediaPlayer mp;
+    private LocationManager manejador;
+    private Location mejorLocaliz;
+    private static final long DOS_MINUTOS = 2 * 60 * 1000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,72 @@ public class MainActivity extends ListActivity {
         setListAdapter(adaptador);
         mp = MediaPlayer.create(this, R.raw.audio);
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+        manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+        }
+        if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
+        }
+    }
+
+    private void actualizaMejorLocaliz(Location localiz) {
+        if (localiz != null && (mejorLocaliz == null
+                || localiz.getAccuracy() < 2 * mejorLocaliz.getAccuracy()
+                || localiz.getTime() - mejorLocaliz.getTime() > DOS_MINUTOS)) {
+            Log.d(Lugares.TAG, "Nueva mejor localización");
+            mejorLocaliz = localiz;
+            Lugares.posicionActual.setLatitud(localiz.getLatitude());
+            Lugares.posicionActual.setLongitud(localiz.getLongitude());
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d(Lugares.TAG, "Nueva localización: " + location);
+        actualizaMejorLocaliz(location);
+    }
+
+    @Override
+    public void onProviderDisabled(String proveedor) {
+        Log.d(Lugares.TAG, "Se deshabilita: " + proveedor);
+        activarProveedores();
+    }
+
+    @Override
+    public void onProviderEnabled(String proveedor) {
+        Log.d(Lugares.TAG, "Se habilita: " + proveedor);
+        activarProveedores();
+    }
+
+    @Override
+    public void onStatusChanged(String proveedor, int estado, Bundle extras) {
+        Log.d(Lugares.TAG, "Cambia estado: " + proveedor);
+        activarProveedores();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activarProveedores();
+        mp.start();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+    }
+
+    private void activarProveedores() {
+        if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            manejador.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20 * 1000, 5, this);
+        }
+        if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            manejador.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10 * 1000, 10, this);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        manejador.removeUpdates(this);
+        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -61,18 +134,6 @@ public class MainActivity extends ListActivity {
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onResume() {
-        mp.start();
-        super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onPause() {
-        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
-        super.onPause();
-    }
 
     @Override
     protected void onStop() {
