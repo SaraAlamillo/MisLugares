@@ -182,6 +182,10 @@ public class MainActivity extends ListActivity implements LocationListener {
             return true;
         }
         switch (id) {
+            case R.id.menu_mapa:
+                //Intent i = new Intent(this, Mapa.class);
+                //startActivity(i);
+                break;
             case R.id.acercaDe:
                 lanzarAcercaDe(null);
                 break;

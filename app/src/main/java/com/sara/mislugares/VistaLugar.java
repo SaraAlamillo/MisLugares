@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -38,17 +39,6 @@ public class VistaLugar extends ActionBarActivity {
         lugar = Lugares.elemento((int) id);
         imageView = (ImageView) findViewById(R.id.foto);
         actualizarVistas();
-    }
-
-    public void tomarFoto(View view) {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        uriFoto = Uri.fromFile(new File(
-                Environment.getExternalStorageDirectory() +
-                        File.separator +
-                        "img_" +
-                        (System.currentTimeMillis() / 1000) + ".jpg"));
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
-        startActivityForResult(intent, RESULTADO_FOTO);
     }
 
     public void eliminarFoto(View view) {
@@ -109,7 +99,10 @@ public class VistaLugar extends ActionBarActivity {
         } else {
             uri = Uri.parse("geo:0,0?q=" + lugar.getDireccion());
         }
+
+        Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
     }
 
@@ -142,13 +135,29 @@ public class VistaLugar extends ActionBarActivity {
             ponerFoto(imageView, lugar.getFoto());
         } else if (requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK && lugar != null && uriFoto != null) {
             lugar.setFoto(uriFoto.toString());
-            ponerFoto(imageView, lugar.getFoto());
+           ponerFoto(imageView, lugar.getFoto());
         }
+    }
+
+    public void tomarFoto(View view) {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        uriFoto = Uri.fromFile(new File(
+                Environment.getExternalStorageDirectory() +
+                        File.separator +
+                        "img_" +
+                        (System.currentTimeMillis() / 1000) + ".jpg"));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
+        startActivityForResult(intent, RESULTADO_FOTO);
     }
 
     protected void ponerFoto(ImageView imageView, String uri) {
         if (uri != null) {
-            imageView.setImageURI(Uri.parse(uri));
+            try {
+                imageView.setImageURI(Uri.parse(uri));
+            } catch (Throwable e) {
+                Toast.makeText(this, "La imagen es demasiado grande. Intente reducir el tamaño.", Toast.LENGTH_SHORT).show();
+            }
+           imageView.setImageURI(Uri.parse(uri));
         } else {
             imageView.setImageBitmap(null);
         }

@@ -12,6 +12,7 @@ public class GeoPunto {
     public GeoPunto(double pLongitud, double pAltitud) {
         this.longitud = (int) (pLongitud * 1E6);
         this.latitud = (int) (pAltitud * 1E6);
+
     }
 
     // declaración de métodos
@@ -44,7 +45,7 @@ public class GeoPunto {
     }
 
     public double getLongitud() {
-        return longitud;
+        return  longitud/1E6;
     }
 
     public void setLongitud(double longitud) {
@@ -52,7 +53,7 @@ public class GeoPunto {
     }
 
     public double getLatitud() {
-        return latitud;
+        return latitud/1E6;
     }
 
     public void setLatitud(double latitud) {
