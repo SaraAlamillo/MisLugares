@@ -1,5 +1,6 @@
 package com.sara.mislugares;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -13,11 +14,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Mapa extends FragmentActivity implements  GoogleMap.OnInfoWindowClickListener {
+public class Mapa extends FragmentActivity implements GoogleMap.OnInfoWindowClickListener {
     private GoogleMap mapa;
 
     @Override
-    public void onInfoWindowClick(final Marker marker) {}
+    public void onInfoWindowClick(final Marker marker) {
+        for (int id = 0; id < Lugares.vectorLugares.size(); id++) {
+            if (Lugares.vectorLugares.get(id).getNombre().equals(marker.getTitle())) {
+                Intent intent = new Intent(this, VistaLugar.class);
+                intent.putExtra("id", (long) id);
+                startActivity(intent);
+                break;
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,5 +51,6 @@ public class Mapa extends FragmentActivity implements  GoogleMap.OnInfoWindowCli
                 mapa.addMarker(new MarkerOptions().position(new LatLng(p.getLatitud(), p.getLongitud())).title(lugar.getNombre()).snippet(lugar.getDireccion()).icon(BitmapDescriptorFactory.fromBitmap(icono)));
             }
         }
+        mapa.setOnInfoWindowClickListener(this);
     }
 }

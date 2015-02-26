@@ -57,7 +57,9 @@
         <activity
             android:name=".EdicionLugar"
             android:label="Edicción de lugares" />
-        <activity android:name="Mapa" />
+        <activity
+            android:name="Mapa"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
