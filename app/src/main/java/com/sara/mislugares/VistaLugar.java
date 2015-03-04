@@ -36,7 +36,6 @@ public class VistaLugar extends ActionBarActivity {
         setContentView(R.layout.vista_lugar);
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
-        lugar = Lugares.elemento((int) id);
         imageView = (ImageView) findViewById(R.id.foto);
         actualizarVistas();
     }
@@ -132,10 +131,12 @@ public class VistaLugar extends ActionBarActivity {
             findViewById(R.id.scrollView1).invalidate();
         } else if (requestCode == RESULTADO_GALERIA && resultCode == Activity.RESULT_OK) {
             lugar.setFoto(data.getDataString());
+            Lugares.actualizaLugar((int) id, lugar);
             ponerFoto(imageView, lugar.getFoto());
         } else if (requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK && lugar != null && uriFoto != null) {
             lugar.setFoto(uriFoto.toString());
-           ponerFoto(imageView, lugar.getFoto());
+            Lugares.actualizaLugar((int) id, lugar);
+            ponerFoto(imageView, lugar.getFoto());
         }
     }
 
@@ -157,7 +158,7 @@ public class VistaLugar extends ActionBarActivity {
             } catch (Throwable e) {
                 Toast.makeText(this, "La imagen es demasiado grande. Intente reducir el tamaño.", Toast.LENGTH_SHORT).show();
             }
-           imageView.setImageURI(Uri.parse(uri));
+            imageView.setImageURI(Uri.parse(uri));
         } else {
             imageView.setImageBitmap(null);
         }
@@ -165,6 +166,7 @@ public class VistaLugar extends ActionBarActivity {
 
 
     public void actualizarVistas() {
+        lugar = Lugares.elemento((int) id);
         TextView nombre = (TextView) findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
         ImageView logo_tipo = (ImageView) findViewById(R.id.logo_tipo);
@@ -205,6 +207,7 @@ public class VistaLugar extends ActionBarActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float valor, boolean fromUser) {
                 lugar.setValoracion(valor);
+                Lugares.actualizaLugar((int) id, lugar);
             }
         });
         ponerFoto(imageView, lugar.getFoto());

@@ -57,6 +57,36 @@ public class Lugares {
         return lugar;
     }
 
+    public static void actualizaLugar(int id, Lugar lugar) {
+        SQLiteDatabase bd = lugaresBD.getWritableDatabase();
+        bd.execSQL("UPDATE lugares SET nombre = '"
+                + lugar.getNombre()
+                + "', direccion = '"
+                + lugar.getDireccion()
+                + "', longitud = "
+                + lugar.getPosicion().getLongitud()
+                + " , latitud = "
+                + lugar.getPosicion().getLatitud()
+                + " , tipo = "
+                + lugar.getTipo().ordinal()
+                + " , foto = '"
+                + lugar.getFoto()
+                + "', telefono = "
+                + lugar.getTelefono()
+                + " , url = '"
+                + lugar.getUrl()
+                + "', comentario = '"
+                + lugar.getComentario()
+                + "', fecha = "
+                + lugar.getFecha()
+                + " , valoracion = "
+                + lugar.getValoracion()
+                + " WHERE _id = "
+                + id
+        );
+        bd.close();
+    }
+
     static void anyade(Lugar lugar) {
         vectorLugares.add(lugar);
     }
