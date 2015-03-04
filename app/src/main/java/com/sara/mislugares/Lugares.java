@@ -18,6 +18,10 @@ public class Lugares {
     public static Cursor listado() {
         SQLiteDatabase bd = lugaresBD.getReadableDatabase();
         return bd.rawQuery("SELECT * FROM lugares", null);
+        // return bd.rawQuery("SELECT * FROM lugares WHERE valoracion>1.0 ORDER BY nombre LIMIT 3", null);
+        // String[] campos = {"*"};
+        // return bd.query("lugares", campos, null, null, null, null, null, null);
+        // return bd.query("lugares", campos, "valoracion>1.0", null, null, null, "nombre", Integer.toString(3));
     }
 
     public static String TAG = "Lugares";
