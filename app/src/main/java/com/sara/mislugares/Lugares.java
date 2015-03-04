@@ -60,29 +60,29 @@ public class Lugares {
     public static void actualizaLugar(int id, Lugar lugar) {
         SQLiteDatabase bd = lugaresBD.getWritableDatabase();
         bd.execSQL("UPDATE lugares SET nombre = '"
-                + lugar.getNombre()
-                + "', direccion = '"
-                + lugar.getDireccion()
-                + "', longitud = "
-                + lugar.getPosicion().getLongitud()
-                + " , latitud = "
-                + lugar.getPosicion().getLatitud()
-                + " , tipo = "
-                + lugar.getTipo().ordinal()
-                + " , foto = '"
-                + lugar.getFoto()
-                + "', telefono = "
-                + lugar.getTelefono()
-                + " , url = '"
-                + lugar.getUrl()
-                + "', comentario = '"
-                + lugar.getComentario()
-                + "', fecha = "
-                + lugar.getFecha()
-                + " , valoracion = "
-                + lugar.getValoracion()
-                + " WHERE _id = "
-                + id
+                        + lugar.getNombre()
+                        + "', direccion = '"
+                        + lugar.getDireccion()
+                        + "', longitud = "
+                        + lugar.getPosicion().getLongitud()
+                        + " , latitud = "
+                        + lugar.getPosicion().getLatitud()
+                        + " , tipo = "
+                        + lugar.getTipo().ordinal()
+                        + " , foto = '"
+                        + lugar.getFoto()
+                        + "', telefono = "
+                        + lugar.getTelefono()
+                        + " , url = '"
+                        + lugar.getUrl()
+                        + "', comentario = '"
+                        + lugar.getComentario()
+                        + "', fecha = "
+                        + lugar.getFecha()
+                        + " , valoracion = "
+                        + lugar.getValoracion()
+                        + " WHERE _id = "
+                        + id
         );
         bd.close();
     }
@@ -91,10 +91,33 @@ public class Lugares {
         vectorLugares.add(lugar);
     }
 
-    static int nuevo() {
+    /*static int nuevo() {
         Lugar lugar = new Lugar();
         vectorLugares.add(lugar);
         return vectorLugares.size() - 1;
+    }*/
+
+    public static int nuevo() {
+        int id = -1;
+        Lugar lugar = new Lugar();
+        SQLiteDatabase bd = lugaresBD.getWritableDatabase();
+        bd.execSQL("INSERT INTO lugares (longitud, latitud, tipo, fecha) VALUES ( "
+                        + lugar.getPosicion().getLongitud()
+                        + ", "
+                        + lugar.getPosicion().getLatitud()
+                        + ", "
+                        + lugar.getTipo().ordinal()
+                        + ", "
+                        + lugar.getFecha()
+                        + ")"
+        );
+        Cursor c = bd.rawQuery("SELECT _id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
+        if (c.moveToNext()) {
+            id = c.getInt(0);
+        }
+        c.close();
+        bd.close();
+        return id;
     }
 
     static void borrar(int id) {
