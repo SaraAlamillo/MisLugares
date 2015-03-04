@@ -32,8 +32,29 @@ public class Lugares {
         vectorLugares = ejemploLugares();
     }
 
-    static Lugar elemento(int id) {
+    /*static Lugar elemento(int id) {
         return vectorLugares.get(id);
+    }*/
+    public static Lugar elemento(int id) {
+        Lugar lugar = null;
+        SQLiteDatabase bd = lugaresBD.getReadableDatabase();
+        Cursor cursor = bd.rawQuery("SELECT * FROM lugares WHERE _id = " + id, null);
+        if (cursor.moveToNext()) {
+            lugar = new Lugar();
+            lugar.setNombre(cursor.getString(1));
+            lugar.setDireccion(cursor.getString(2));
+            lugar.setPosicion(new GeoPunto(cursor.getDouble(3), cursor.getDouble(4)));
+            lugar.setTipo(TipoLugar.values()[cursor.getInt(5)]);
+            lugar.setFoto(cursor.getString(6));
+            lugar.setTelefono(cursor.getInt(7));
+            lugar.setUrl(cursor.getString(8));
+            lugar.setComentario(cursor.getString(9));
+            lugar.setFecha(cursor.getLong(10));
+            lugar.setValoracion(cursor.getFloat(11));
+        }
+        cursor.close();
+        bd.close();
+        return lugar;
     }
 
     static void anyade(Lugar lugar) {
