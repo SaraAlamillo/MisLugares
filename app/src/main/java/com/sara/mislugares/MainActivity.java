@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -19,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
@@ -29,7 +29,7 @@ public class MainActivity extends ListActivity implements LocationListener {
     private Button bSalir;
     private Button bPreferencias;
     private Button bMostrar;
-    MediaPlayer mp;
+    // MediaPlayer mp;
     private LocationManager manejador;
     private Location mejorLocaliz;
     private static final long DOS_MINUTOS = 2 * 60 * 1000;
@@ -38,9 +38,7 @@ public class MainActivity extends ListActivity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adaptador = new AdaptadorLugares(this);
-        setListAdapter(adaptador);
-        mp = MediaPlayer.create(this, R.raw.audio);
+        //mp = MediaPlayer.create(this, R.raw.audio);
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
         manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -49,6 +47,16 @@ public class MainActivity extends ListActivity implements LocationListener {
         if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
         }
+        // adaptador = new AdaptadorLugares(this);
+        Lugares.indicializaBD(this);
+        adaptador = new SimpleCursorAdapter(this,
+                R.layout.elemento_lista,
+                Lugares.listado(),
+                new String[]{"nombre", "direccion"},
+                new int[]{R.id.nombre, R.id.direccion},
+                0
+        );
+        setListAdapter(adaptador);
     }
 
     private void actualizaMejorLocaliz(Location localiz) {
@@ -90,7 +98,7 @@ public class MainActivity extends ListActivity implements LocationListener {
     protected void onResume() {
         super.onResume();
         activarProveedores();
-        mp.start();
+        //mp.start();
         Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
     }
 
@@ -113,19 +121,19 @@ public class MainActivity extends ListActivity implements LocationListener {
     @Override
     protected void onSaveInstanceState(Bundle estadoGuardado) {
         super.onSaveInstanceState(estadoGuardado);
-        if (mp != null) {
+        /* if (mp != null) {
             int pos = mp.getCurrentPosition();
             estadoGuardado.putInt("posicion", pos);
-        }
+        } */
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle estadoGuardado) {
         super.onRestoreInstanceState(estadoGuardado);
-        if (estadoGuardado != null && mp != null) {
+        /* if (estadoGuardado != null && mp != null) {
             int pos = estadoGuardado.getInt("posicion");
             mp.seekTo(pos);
-        }
+        } */
     }
 
     @Override
@@ -138,7 +146,7 @@ public class MainActivity extends ListActivity implements LocationListener {
     @Override
     protected void onStop() {
         super.onStop();
-        mp.pause();
+        // mp.pause();
         Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
     }
 

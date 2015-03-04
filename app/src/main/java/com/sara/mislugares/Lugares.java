@@ -1,9 +1,25 @@
 package com.sara.mislugares;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lugares {
+
+    private static LugaresBD lugaresBD;
+
+    public static void indicializaBD(Context contexto) {
+        lugaresBD = new LugaresBD(contexto);
+    }
+
+    public static Cursor listado() {
+        SQLiteDatabase bd = lugaresBD.getReadableDatabase();
+        return bd.rawQuery("SELECT * FROM lugares", null);
+    }
+
     public static String TAG = "Lugares";
     protected static GeoPunto posicionActual = new GeoPunto(0, 0);
     public static ArrayList<Lugar> vectorLugares = ejemploLugares();
