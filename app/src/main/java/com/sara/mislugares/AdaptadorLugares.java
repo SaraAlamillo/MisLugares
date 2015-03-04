@@ -1,15 +1,6 @@
 package com.sara.mislugares;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-
-public class AdaptadorLugares extends BaseAdapter {
+/*public class AdaptadorLugares extends BaseAdapter {
     private LayoutInflater inflador; // Crea Layouts a partir del XML
     TextView nombre, direccion;
     ImageView foto;
@@ -90,4 +81,4 @@ public class AdaptadorLugares extends BaseAdapter {
     public long getItemId(int posicion) {
         return posicion;
     }
-}
+} */

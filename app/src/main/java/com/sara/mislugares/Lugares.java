@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Lugares {
 
     private static LugaresBD lugaresBD;
@@ -26,11 +23,11 @@ public class Lugares {
 
     public static String TAG = "Lugares";
     protected static GeoPunto posicionActual = new GeoPunto(0, 0);
-    public static ArrayList<Lugar> vectorLugares = ejemploLugares();
+    // public static ArrayList<Lugar> vectorLugares = ejemploLugares();
 
-    public Lugares() {
+    /* public Lugares() {
         vectorLugares = ejemploLugares();
-    }
+    } */
 
     /*static Lugar elemento(int id) {
         return vectorLugares.get(id);
@@ -87,9 +84,9 @@ public class Lugares {
         bd.close();
     }
 
-    static void anyade(Lugar lugar) {
+    /* static void anyade(Lugar lugar) {
         vectorLugares.add(lugar);
-    }
+    } */
 
     /*static int nuevo() {
         Lugar lugar = new Lugar();
@@ -130,11 +127,11 @@ public class Lugares {
         bd.close();
     }
 
-    public static int size() {
+    /* public static int size() {
         return vectorLugares.size();
-    }
+    } */
 
-    public static ArrayList<Lugar> ejemploLugares() {
+    /* public static ArrayList<Lugar> ejemploLugares() {
         ArrayList<Lugar> lugares = new ArrayList<Lugar>();
         lugares.add(new Lugar("Escuela Politécnica Superior de Gandía",
                 "C/ Paranimf, 1 46730 Gandia (SPAIN)", -0.166093, 38.995656,
@@ -161,14 +158,26 @@ public class Lugares {
                 38.9705949, TipoLugar.COMPRAS, 962881070,
                 "http://www.lavital.es/", "El típico centro comercial", 2));
         return lugares;
+    } */
+
+    public static int buscarNombre(String nombre) {
+        int id = -1;
+        SQLiteDatabase bd = lugaresBD.getReadableDatabase();
+        Cursor c = bd.rawQuery("SELECT * FROM lugares WHERE nombre = " + nombre, null);
+        if (c.moveToNext()) {
+            id = c.getInt(0);
+        }
+        c.close();
+        bd.close();
+        return id;
     }
 
-    static List<String> listaNombres() {
+    /* static List<String> listaNombres() {
         ArrayList<String> resultado = new ArrayList<String>();
         for (Lugar lugar : vectorLugares) {
             resultado.add(lugar.getNombre());
         }
         return resultado;
-    }
+    }*/
 
 }
