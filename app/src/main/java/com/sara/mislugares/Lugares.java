@@ -120,8 +120,14 @@ public class Lugares {
         return id;
     }
 
-    static void borrar(int id) {
+    /*static void borrar(int id) {
         vectorLugares.remove(id);
+    }*/
+
+    public static void borrar(int id) {
+        SQLiteDatabase bd = lugaresBD.getWritableDatabase();
+        bd.execSQL("DELETE FROM lugares WHERE _id = " + id);
+        bd.close();
     }
 
     public static int size() {
