@@ -18,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
@@ -49,13 +48,14 @@ public class MainActivity extends ListActivity implements LocationListener {
         }
         // adaptador = new AdaptadorLugares(this);
         Lugares.indicializaBD(this);
-        adaptador = new SimpleCursorAdapter(this,
+        /*adaptador = new SimpleCursorAdapter(this,
                 R.layout.elemento_lista,
                 Lugares.listado(),
                 new String[]{"nombre", "direccion"},
                 new int[]{R.id.nombre, R.id.direccion},
                 0
-        );
+        );*/
+        adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
         setListAdapter(adaptador);
     }
 
