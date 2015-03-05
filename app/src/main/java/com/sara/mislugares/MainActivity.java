@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     private LocationManager manejador;
     private Location mejorLocaliz;
     private static final long DOS_MINUTOS = 2 * 60 * 1000;
+    private VistaLugarFragment fragmentVista;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,17 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         );*/
         // adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
         // setListAdapter(adaptador);
+        fragmentVista = (VistaLugarFragment) getSupportFragmentManager().findFragmentById(R.id.vista_lugar_fragment);
+    }
+
+    public void muestraLugar(long id) {
+        if (fragmentVista != null) {
+            fragmentVista.actualizarVistas(id);
+        } else {
+            Intent intent = new Intent(this, VistaLugar.class);
+            intent.putExtra("id", id);
+            startActivityForResult(intent, 0);
+        }
     }
 
     private void actualizaMejorLocaliz(Location localiz) {
