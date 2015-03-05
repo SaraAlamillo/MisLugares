@@ -2,13 +2,14 @@ package com.sara.mislugares;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,13 +20,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.lang.String;
 
-public class VistaLugarFragment extends Fragment {
+public class VistaLugarFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
     private long id;
     private Lugar lugar;
     // private ImageView imageView;
@@ -43,6 +48,19 @@ public class VistaLugarFragment extends Fragment {
         imageView = (ImageView) findViewById(R.id.foto);
         actualizarVistas();
     } */
+
+    @Override
+    public void onTimeSet(TimePicker vista, int hora, int minuto) {
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTimeInMillis(lugar.getFecha());
+        calendario.set(Calendar.HOUR_OF_DAY, hora);
+        calendario.set(Calendar.MINUTE, minuto);
+        lugar.setFecha(calendario.getTimeInMillis());
+        Lugares.actualizaLugar((int) id, lugar);
+        TextView tHora = (TextView) getView().findViewById(R.id.hora);
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+        tHora.setText(formato.format(new Date(lugar.getFecha())));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflador, ViewGroup contenedor, Bundle savedInstanceState) {
@@ -84,7 +102,22 @@ public class VistaLugarFragment extends Fragment {
                 eliminarFoto(null);
             }
         });
+        ImageView iconoHora = (ImageView) vista.findViewById(R.id.icono_hora);
+        iconoHora.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                cambiarHora();
+            }
+        });
         return vista;
+    }
+
+    public void cambiarHora() {
+        DialogoSelectorHora dialogoHora = new DialogoSelectorHora();
+        dialogoHora.setOnTimeSetListener(this);
+        Bundle args = new Bundle();
+        args.putLong("fecha", lugar.getFecha());
+        dialogoHora.setArguments(args);
+        dialogoHora.show(getActivity().getFragmentManager(), "selectorHora");
     }
 
     @Override
@@ -171,7 +204,7 @@ public class VistaLugarFragment extends Fragment {
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Lugares.borrar((int) id);
-                        SelectorFragment selectorFragment = (SelectorFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.selector_fragment);
+                        SelectorFragment selectorFragment = (SelectorFragment) getActivity().getFragmentManager().findFragmentById(R.id.selector_fragment);
                         if (selectorFragment == null) {
                             getActivity().finish();
                         } else {

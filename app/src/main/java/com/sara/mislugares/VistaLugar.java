@@ -21,6 +21,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 
+
 public class VistaLugar extends ActionBarActivity {
     private long id;
     private Lugar lugar;

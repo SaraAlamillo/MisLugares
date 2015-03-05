@@ -35,20 +35,9 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         // setContentView(R.layout.fragment_selector);
-        setContentView(R.layout.activity_main);
         //mp = MediaPlayer.create(this, R.raw.audio);
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
-        manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER));
-        }
-        if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
-        }
         // adaptador = new AdaptadorLugares(this);
-        Lugares.indicializaBD(this);
         /*adaptador = new SimpleCursorAdapter(this,
                 R.layout.elemento_lista,
                 Lugares.listado(),
@@ -58,7 +47,18 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         );*/
         // adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
         // setListAdapter(adaptador);
-        fragmentVista = (VistaLugarFragment) getSupportFragmentManager().findFragmentById(R.id.vista_lugar_fragment);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+        manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+        }
+        if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
+        }
+        Lugares.indicializaBD(this);
+        fragmentVista = (VistaLugarFragment) getFragmentManager().findFragmentById(R.id.vista_lugar_fragment);
         if (fragmentVista != null) {
             fragmentVista.actualizarVistas(Lugares.primerId());
         }
