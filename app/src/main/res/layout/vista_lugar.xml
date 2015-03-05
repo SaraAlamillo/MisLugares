@@ -42,8 +42,8 @@
             android:id="@+id/capa_direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:onClick="verMapa">
+            android:orientation="horizontal">
+            <!-- android:onClick="verMapa" -->
 
         <ImageView
                 android:id="@+id/logo_direccion"
@@ -64,8 +64,8 @@
             android:id="@+id/capa_telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:onClick="llamadaTelefono">
+            android:orientation="horizontal">
+            <!-- android:onClick="llamadaTelefono" -->
 
         <ImageView
                 android:id="@+id/logo_telefono"
@@ -83,11 +83,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/capa_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:onClick="pgWeb">
+            android:id="@+id/capa_url">
+            <!-- android:onClick="pgWeb" -->
 
         <ImageView
                 android:id="@+id/logo_url"
@@ -201,25 +201,28 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:contentDescription="logo camara"
-                    android:src="@android:drawable/ic_menu_camera"
-                    android:onClick="tomarFoto" />
+                    android:contentDescription="Acceder a la cámara"
+                    android:id="@+id/camara"
+                    android:src="@android:drawable/ic_menu_camera"/>
+                    <!-- android:onClick="tomarFoto" -->
 
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:contentDescription="logo galeria"
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:onClick="galeria" />
+                    android:contentDescription="Acceder a la galería"
+                    android:id="@+id/galeria"
+                    android:src="@android:drawable/ic_menu_gallery"/>
+                <!-- android:onClick="galeria" -->
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:contentDescription="Eliminar foto"
-                    android:onClick="eliminarFoto"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:contentDescription="Eliminar foto"
+                    android:id="@+id/eliminar"
                     android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                <!-- android:onClick="eliminarFoto"-->
 
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
+       </LinearLayout>
+   </FrameLayout>
+</LinearLayout>
 </ScrollView>
