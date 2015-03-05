@@ -160,6 +160,18 @@ public class Lugares {
         return lugares;
     } */
 
+    public static int primerId() {
+        int id = -1;
+        SQLiteDatabase bd = lugaresBD.getReadableDatabase();
+        Cursor c = bd.rawQuery("SELECT _id FROM lugares LIMIT 1", null);
+        if (c.moveToNext()) {
+            id = c.getInt(0);
+        }
+        c.close();
+        bd.close();
+        return id;
+    }
+
     public static int buscarNombre(String nombre) {
         int id = -1;
         SQLiteDatabase bd = lugaresBD.getReadableDatabase();

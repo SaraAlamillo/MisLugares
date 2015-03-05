@@ -58,6 +58,9 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         // adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
         // setListAdapter(adaptador);
         fragmentVista = (VistaLugarFragment) getSupportFragmentManager().findFragmentById(R.id.vista_lugar_fragment);
+        if (fragmentVista != null) {
+            fragmentVista.actualizarVistas(Lugares.primerId());
+        }
     }
 
     public void muestraLugar(long id) {

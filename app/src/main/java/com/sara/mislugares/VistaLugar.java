@@ -213,3 +213,13 @@ public class VistaLugar extends ActionBarActivity {
         ponerFoto(imageView, lugar.getFoto());
     }
 }
+
+/*
+public class VistaLugar extends FragmentActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.vista_lugar);
+    }
+}
+ */
