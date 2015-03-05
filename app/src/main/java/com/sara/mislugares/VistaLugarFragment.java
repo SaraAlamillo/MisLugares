@@ -170,8 +170,14 @@ public class VistaLugarFragment extends Fragment {
                 .setMessage("Tras su eliminación, la recuperación será imposible.")
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        Lugares.borrar(id);
-                        getActivity().recreate();
+                        Lugares.borrar((int) id);
+                        SelectorFragment selectorFragment = (SelectorFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.selector_fragment);
+                        if (selectorFragment == null) {
+                            getActivity().finish();
+                        } else {
+                            ((MainActivity) getActivity()).muestraLugar(Lugares.primerId());
+                            ((MainActivity) getActivity()).actualizaLista();
+                        }
                     }
                 })
                 .setNegativeButton("No", null).show();

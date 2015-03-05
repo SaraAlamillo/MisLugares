@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -249,6 +250,18 @@ public class MainActivity extends FragmentActivity implements LocationListener {
             }
         })
                 .setNegativeButton("Cancelar", null).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        actualizaLista();
+    }
+
+    public void actualizaLista() {
+        ListView listView = (ListView) findViewById(R.id.listView);
+        AdaptadorCursorLugares adaptador = (AdaptadorCursorLugares) listView.getAdapter();
+        adaptador.changeCursor(Lugares.listado());
     }
 
 }
