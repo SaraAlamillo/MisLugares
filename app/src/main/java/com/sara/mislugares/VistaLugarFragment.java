@@ -2,6 +2,8 @@ package com.sara.mislugares;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,13 +11,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -28,9 +30,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.lang.String;
 
-public class VistaLugarFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
+public class VistaLugarFragment extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private long id;
     private Lugar lugar;
     // private ImageView imageView;
@@ -108,7 +109,36 @@ public class VistaLugarFragment extends Fragment implements TimePickerDialog.OnT
                 cambiarHora();
             }
         });
+        ImageView iconoFecha = (ImageView) vista.findViewById(R.id.icono_fecha);
+        iconoFecha.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                cambiarFecha();
+            }
+        });
         return vista;
+    }
+
+    public void cambiarFecha() {
+        DialogoSelectorFecha dialogoFecha = new DialogoSelectorFecha();
+        dialogoFecha.setOnDateSetListener(this);
+        Bundle args = new Bundle();
+        args.putLong("fecha", lugar.getFecha());
+        dialogoFecha.setArguments(args);
+        dialogoFecha.show(getActivity().getFragmentManager(), "selectorFecha");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int anyo, int mes, int dia) {
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTimeInMillis(lugar.getFecha());
+        calendario.set(Calendar.YEAR, anyo);
+        calendario.set(Calendar.MONTH, mes);
+        calendario.set(Calendar.DAY_OF_MONTH, dia);
+        lugar.setFecha(calendario.getTimeInMillis());
+        Lugares.actualizaLugar((int) id, lugar);
+        TextView tFecha = (TextView) getView().findViewById(R.id.fecha);
+        DateFormat formato = DateFormat.getDateInstance();
+        tFecha.setText(formato.format(new Date(lugar.getFecha())));
     }
 
     public void cambiarHora() {
