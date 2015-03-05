@@ -1,7 +1,6 @@
 package com.sara.mislugares;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,20 +9,19 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ListActivity implements LocationListener {
-
-    public BaseAdapter adaptador;
+//public class MainActivity extends ListActivity implements LocationListener {
+public class MainActivity extends FragmentActivity implements LocationListener {
+    // public BaseAdapter adaptador;
     private Button bAcercaDe;
     private Button bSalir;
     private Button bPreferencias;
@@ -36,6 +34,7 @@ public class MainActivity extends ListActivity implements LocationListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // setContentView(R.layout.fragment_selector);
         setContentView(R.layout.activity_main);
         //mp = MediaPlayer.create(this, R.raw.audio);
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
@@ -55,8 +54,8 @@ public class MainActivity extends ListActivity implements LocationListener {
                 new int[]{R.id.nombre, R.id.direccion},
                 0
         );*/
-        adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
-        setListAdapter(adaptador);
+        // adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
+        // setListAdapter(adaptador);
     }
 
     private void actualizaMejorLocaliz(Location localiz) {
@@ -162,13 +161,14 @@ public class MainActivity extends ListActivity implements LocationListener {
         Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
     }
 
+    /*
     @Override
     protected void onListItemClick(ListView listView, View vista, int posicion, long id) {
         super.onListItemClick(listView, vista, posicion, id);
         Intent intent = new Intent(this, VistaLugar.class);
         intent.putExtra("id", id);
         startActivity(intent);
-    }
+    } */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

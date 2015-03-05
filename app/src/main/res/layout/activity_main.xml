@@ -1,16 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:drawSelectorOnTop="false" />
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
+    <fragment
+        android:id="@+id/selector_fragment"
+        android:name="com.sara.mislugares.SelectorFragment"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="No hay Lugares" />
-</FrameLayout>
+        android:layout_weight="1" />
+</LinearLayout>
