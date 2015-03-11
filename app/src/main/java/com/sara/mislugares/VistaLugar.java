@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,47 @@ public class VistaLugar extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_lugar);
+        LinearLayout pUrl = (LinearLayout) findViewById(R.id.capa_url);
+        pUrl.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                pgWeb(null);
+            }
+        });
+
+        LinearLayout direccion = (LinearLayout) findViewById(R.id.capa_direccion);
+        direccion.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                verMapa(null);
+            }
+        });
+
+        LinearLayout telefono = (LinearLayout) findViewById(R.id.capa_telefono);
+        telefono.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                llamadaTelefono(null);
+            }
+        });
+
+        ImageView camara = (ImageView) findViewById(R.id.camara);
+        camara.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                tomarFoto(null);
+            }
+        });
+
+        ImageView bGaleria = (ImageView) findViewById(R.id.galeria);
+        bGaleria.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                galeria(null);
+            }
+        });
+
+        ImageView eliminar = (ImageView) findViewById(R.id.eliminar);
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                eliminarFoto(null);
+            }
+        });
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
         imageView = (ImageView) findViewById(R.id.foto);
