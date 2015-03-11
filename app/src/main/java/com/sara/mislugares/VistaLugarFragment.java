@@ -73,42 +73,49 @@ public class VistaLugarFragment extends Fragment implements TimePickerDialog.OnT
                 pgWeb(null);
             }
         });
+
         LinearLayout direccion = (LinearLayout) vista.findViewById(R.id.capa_direccion);
         direccion.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 verMapa(null);
             }
         });
+
         LinearLayout telefono = (LinearLayout) vista.findViewById(R.id.capa_telefono);
         telefono.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 llamadaTelefono(null);
             }
         });
+
         ImageView camara = (ImageView) vista.findViewById(R.id.camara);
         camara.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 tomarFoto(null);
             }
         });
+
         ImageView bGaleria = (ImageView) vista.findViewById(R.id.galeria);
         bGaleria.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 galeria(null);
             }
         });
+
         ImageView eliminar = (ImageView) vista.findViewById(R.id.eliminar);
         eliminar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 eliminarFoto(null);
             }
         });
+
         ImageView iconoHora = (ImageView) vista.findViewById(R.id.icono_hora);
         iconoHora.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 cambiarHora();
             }
         });
+
         ImageView iconoFecha = (ImageView) vista.findViewById(R.id.icono_fecha);
         iconoFecha.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
